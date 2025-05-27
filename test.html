@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #1f4959;
+            color: #5c7c89;
+            font-family: 'CustomFont', sans-serif;
+            position: relative;
+            /* cursor: none; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 100px 100px;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 11px);
+            pointer-events: none;
+            z-index: 1;
+            transform: rotate(45deg);
+        }
+
+        .overlay {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1819;
+            pointer-events: none;
+            z-index: 2;
+            mask-image: radial-gradient(circle 200px at center, transparent, #011425); 
+            -webkit-mask-image: radial-gradient(circle 200px at center, transparent, #011425); 
+            mask-position: center;
+            -webkit-mask-position: center;
+        }
+
+        .circle {
+            position: absolute;
+            width: 150px; 
+            height: 150px; 
+            pointer-events: none;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .circle img {
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+        }
+
+        .center-text {
+            position: fixed;
+            top: 33%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem; 
+            z-index: 4; 
+        }
+        
+        @font-face {
+            font-family: 'CustomFont'; 
+            src: url('QuartzoBold-W9lv.ttf') format('woff2'), 
+                 url('QuartzoBold-W9lv.ttf') format('woff'); 
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="overlay"></div>
+    <div class="circle">
+    </div>
+    <p class="center-text">WELCOME</p>
+    <section>
+    <script>
+        document.addEventListener('mousemove', (event) => {
+            const overlay = document.querySelector('.overlay');
+            const circle = document.querySelector('.circle');
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            const maskX = mouseX - (overlay.offsetWidth / 2);
+            const maskY = mouseY - (overlay.offsetHeight / 2);
+
+            overlay.style.maskPosition = `${maskX}px ${maskY}px`;
+            overlay.style.webkitMaskPosition = `${maskX}px ${maskY}px`;
+
+            circle.style.left = `${mouseX}px`;
+            circle.style.top = `${mouseY}px`;
+        });
+    </script>
+</body>
+</html>
